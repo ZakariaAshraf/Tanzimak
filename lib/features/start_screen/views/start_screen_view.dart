@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tanzimak/core/config/app_colors.dart';
 import 'package:tanzimak/widgets/primary_button.dart';
 
 import '../../add_courses/views/add_courses_screen.dart';
