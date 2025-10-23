@@ -18,6 +18,10 @@ class TimeSlot {
   final TimeOfDay endTime;
 
   TimeSlot({required this.day, required this.startTime, required this.endTime});
+  @override
+  String toString() {
+    return "${day.name.trim()} ${startTime.hour}-${endTime.hour}";
+  }
 }
 
 class CourseModel {
@@ -95,5 +99,9 @@ class CourseModel {
         ],
       ),
     ];
+  }
+
+  isAvailable(List<CourseModel>course,i){
+
   }
 }

@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanzimak/core/config/app_colors.dart';
 import 'package:tanzimak/core/data/course_model.dart';
-import 'package:tanzimak/widgets/custom_text_field.dart';
-
+import 'package:tanzimak/features/add_courses/cubit/add_courses_cubit.dart';
+import 'package:tanzimak/features/add_courses/widgets/course_item.dart';
 import '../../../widgets/primary_button.dart';
 import '../../preference/views/set_your_preferences_screen.dart';
 import '../widgets/add_courses_dialog.dart';
@@ -14,7 +14,7 @@ class AddCoursesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
-    List<CourseModel> courses = CourseModel.getMockCourses();
+    List<CourseModel> courses = context.watch<AddCoursesCubit>().courses;
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Courses", style: theme.titleLarge),
@@ -30,10 +30,15 @@ class AddCoursesScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 200,
+            height: 230,
             child: ListView.builder(
-              itemBuilder: (context, index) =>
-                  ListTile(title: Text(courses[index].name)),
+              itemBuilder: (context, index) => BlocProvider(
+                create: (context) => AddCoursesCubit(),
+                child: CourseItem(
+                  item: courses[index],
+                  onTap: () => context.read<AddCoursesCubit>().removeCourse(courses[index]),
+                ),
+              ),
               itemCount: courses.length,
             ),
           ),
@@ -72,7 +77,7 @@ class AddCoursesScreen extends StatelessWidget {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SetYourPreferencesScreen(),
+                  builder: (context) => SetYourPreferencesScreen(courses: courses,),
                 ),
               ),
             ),

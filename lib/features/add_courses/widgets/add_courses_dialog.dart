@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanzimak/core/data/course_model.dart';
+import 'package:tanzimak/features/add_courses/cubit/add_courses_cubit.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../../widgets/primary_button.dart';
 
-class AddCoursesDialog extends StatefulWidget {
+class AddCoursesDialog extends StatelessWidget {
   final BuildContext context;
 
-
-   const AddCoursesDialog({super.key, required this.context});
-
-  @override
-  State<AddCoursesDialog> createState() => _AddCoursesDialogState();
-}
-
-class _AddCoursesDialogState extends State<AddCoursesDialog> {
-  final List<CourseModel> courses=CourseModel.getMockCourses();
+  const AddCoursesDialog({super.key, required this.context});
 
   @override
   Widget build(BuildContext context) {
@@ -103,33 +97,33 @@ class _AddCoursesDialogState extends State<AddCoursesDialog> {
                 SizedBox(height: 40),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: PrimaryButton(
-                    onTap: () {
-                      CourseModel model = CourseModel(
-                        name: courseNameController.text,
-                        code: courseCodeController.text,
-                        creditHours: int.parse(courseHoursController.text),
-                        timings: [
-                          TimeSlot(
-                            day: DayOfWeek.sunday,
-                            startTime: TimeOfDay.now(),
-                            endTime: TimeOfDay(hour: 2, minute: 10),
-                          ),
-                          TimeSlot(
-                            day: DayOfWeek.sunday,
-                            startTime: TimeOfDay.now(),
-                            endTime: TimeOfDay(hour: 2, minute: 10),
-                          ),
-                        ],
-                      );
-                      print(courses);
-                      courses.add(model);
-                      setState(() {});
-                      print(courses);
-                      Navigator.pop(context);
-                    },
-                    title: "Save Course",
-                    color: Colors.redAccent,
+                  child: BlocProvider(
+                    create: (context) => AddCoursesCubit(),
+                    child: PrimaryButton(
+                      onTap: () {
+                        CourseModel model = CourseModel(
+                          name: courseNameController.text,
+                          code: courseCodeController.text,
+                          creditHours: int.parse(courseHoursController.text),
+                          timings: [
+                            TimeSlot(
+                              day: DayOfWeek.sunday,
+                              startTime: TimeOfDay.now(),
+                              endTime: TimeOfDay(hour: 2, minute: 10),
+                            ),
+                            TimeSlot(
+                              day: DayOfWeek.sunday,
+                              startTime: TimeOfDay.now(),
+                              endTime: TimeOfDay(hour: 2, minute: 10),
+                            ),
+                          ],
+                        );
+                        context.read<AddCoursesCubit>().addCourse(model);
+                        Navigator.pop(context);
+                      },
+                      title: "Save Course",
+                      color: Colors.redAccent,
+                    ),
                   ),
                 ),
               ],
