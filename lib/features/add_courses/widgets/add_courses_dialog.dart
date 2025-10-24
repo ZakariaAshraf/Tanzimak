@@ -17,7 +17,7 @@ class AddCoursesDialog extends StatelessWidget {
     TextEditingController courseNameController = TextEditingController();
     TextEditingController courseCodeController = TextEditingController();
     TextEditingController courseHoursController = TextEditingController();
-
+    List<TimeSlot>timings= [];
     var theme = Theme.of(context).textTheme;
     return Dialog(
       clipBehavior: Clip.hardEdge,

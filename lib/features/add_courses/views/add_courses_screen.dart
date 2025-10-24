@@ -15,6 +15,12 @@ class AddCoursesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
     List<CourseModel> courses = context.watch<AddCoursesCubit>().courses;
+   bool isAvailableCourses (){
+     if (courses.isEmpty) {
+       return false;
+     }
+     return true;
+   }
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Courses", style: theme.titleLarge),
@@ -73,13 +79,16 @@ class AddCoursesScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(40.0),
             child: PrimaryButton(
+              color: isAvailableCourses() ? AppColors.primary : Colors.grey ,
               title: "GENERATE SCHEDULES (${courses.length})",
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SetYourPreferencesScreen(courses: courses,),
-                ),
-              ),
+              onTap: isAvailableCourses() ? (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SetYourPreferencesScreen(courses: courses,),
+                  ),
+                );
+              } : null ,
             ),
           ),
         ],

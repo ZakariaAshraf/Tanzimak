@@ -7,7 +7,7 @@ class ScheduleModel {
 
   ScheduleModel({
     required this.courses,
-  }) : id = const Uuid().v4(); // Generate a unique ID for each schedule instance.
+  }) : id = const Uuid().v4();
 
   int get totalCreditHours {
     return courses.fold(0, (sum, course) => sum + course.creditHours);
