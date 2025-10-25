@@ -5,6 +5,7 @@ import 'package:tanzimak/core/services/schedule_generator.dart';
 
 import '../../../widgets/primary_button.dart';
 import '../../suggested_schedules/views/suggested_scheduales_screen.dart';
+import '../../../l10n/app_localizations.dart';
 
 class SetYourPreferencesScreen extends StatefulWidget {
   final List<CourseModel> courses;
@@ -32,9 +33,10 @@ class _SetYourPreferencesScreenState extends State<SetYourPreferencesScreen> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Schedule Preferences", style: theme.titleLarge),
+        title: Text(l10n.schedulePreferences, style: theme.titleLarge),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -44,7 +46,7 @@ class _SetYourPreferencesScreenState extends State<SetYourPreferencesScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Desired Credit Hours Range", style: theme.titleMedium),
+            Text(l10n.desiredCreditHoursRange, style: theme.titleMedium),
             const SizedBox(height: 8),
 
             RangeSlider(
@@ -66,17 +68,17 @@ class _SetYourPreferencesScreenState extends State<SetYourPreferencesScreen> {
 
             Center(
               child: Text(
-                "${_creditHours.start.round()} - ${_creditHours.end.round()} hours",
+                l10n.hoursRange(_creditHours.start.round(), _creditHours.end.round()),
                 style: theme.titleSmall,
               ),
             ),
             const SizedBox(height: 24),
 
             // Section for Days Off
-            Text("Preferred Days Off", style: theme.titleMedium),
+            Text(l10n.preferredDaysOff, style: theme.titleMedium),
             const SizedBox(height: 4),
             Text(
-              "Choose your preferred days off.",
+              l10n.choosePreferredDaysOff,
               style: theme.titleSmall!.copyWith(color: Colors.grey),
             ),
             const SizedBox(height: 12),
@@ -86,7 +88,7 @@ class _SetYourPreferencesScreenState extends State<SetYourPreferencesScreen> {
             const Spacer(),
 
             PrimaryButton(
-              title: "GENERATE SCHEDULES",
+              title: l10n.generateSchedulesWithoutNumber,
               onTap: () async{
                 final minCredits = _creditHours.start.round();
                 final maxCredits = _creditHours.end.round();
@@ -111,9 +113,11 @@ class _SetYourPreferencesScreenState extends State<SetYourPreferencesScreen> {
   }
 
   List<Widget> _buildDayChips() {
+    final l10n = AppLocalizations.of(context)!;
     return _daysOff.keys.map((DayOfWeek day) {
+      String dayName = _getLocalizedDayName(day, l10n);
       return FilterChip(
-        label: Text(day.name),
+        label: Text(dayName),
         selected: _daysOff[day]!,
         onSelected: (bool selected) {
           setState(() {
@@ -124,5 +128,25 @@ class _SetYourPreferencesScreenState extends State<SetYourPreferencesScreen> {
         checkmarkColor: Theme.of(context).primaryColor,
       );
     }).toList();
+  }
+
+  /// Helper function to get localized day name
+  String _getLocalizedDayName(DayOfWeek day, AppLocalizations l10n) {
+    switch (day) {
+      case DayOfWeek.monday:
+        return l10n.monday;
+      case DayOfWeek.tuesday:
+        return l10n.tuesday;
+      case DayOfWeek.wednesday:
+        return l10n.wednesday;
+      case DayOfWeek.thursday:
+        return l10n.thursday;
+      case DayOfWeek.friday:
+        return l10n.friday;
+      case DayOfWeek.saturday:
+        return l10n.saturday;
+      case DayOfWeek.sunday:
+        return l10n.sunday;
+    }
   }
 }

@@ -2,133 +2,214 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanzimak/core/data/course_model.dart';
 import 'package:tanzimak/features/add_courses/cubit/add_courses_cubit.dart';
+import 'package:tanzimak/features/add_courses/widgets/time_picker.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../../widgets/primary_button.dart';
+import '../../../l10n/app_localizations.dart';
+class AddCoursesDialog extends StatefulWidget {
+  const AddCoursesDialog({super.key});
 
-class AddCoursesDialog extends StatelessWidget {
-  final BuildContext context;
+  @override
+  State<AddCoursesDialog> createState() => _AddCoursesDialogState();
+}
 
-  const AddCoursesDialog({super.key, required this.context});
+class _AddCoursesDialogState extends State<AddCoursesDialog> {
+  final _formKey = GlobalKey<FormState>();
+
+  late final TextEditingController _courseNameController;
+  late final TextEditingController _courseCodeController;
+  late final TextEditingController _courseHoursController;
+  final List<TimeSlot> _timings = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _courseNameController = TextEditingController();
+    _courseCodeController = TextEditingController();
+    _courseHoursController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _courseNameController.dispose();
+    _courseCodeController.dispose();
+    _courseHoursController.dispose();
+    super.dispose();
+  }
+
+  void _showTimeSlotPicker() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (ctx) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(ctx).viewInsets.bottom,
+            top: 20,
+            left: 20,
+            right: 20,
+          ),
+          child: SizedBox(
+            height: 450,
+            child: TimeSlotPicker(
+              onSave: (newTimeSlot) {
+                setState(() {
+                  _timings.add(newTimeSlot);
+                });
+                Navigator.pop(ctx);
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  /// Handles the final "Save Course" button press
+  void _saveCourse() {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    if (_timings.isEmpty) {
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.pleaseAddTiming),
+          backgroundColor: Colors.orangeAccent,
+        ),
+      );
+      return;
+    }
+
+    final creditHours = int.tryParse(_courseHoursController.text);
+    if (creditHours == null) {
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.pleaseEnterValidHours),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
+
+    final model = CourseModel(
+      name: _courseNameController.text,
+      code: _courseCodeController.text,
+      creditHours: creditHours,
+      timings: _timings,
+    );
+    context.read<AddCoursesCubit>().addCourse(model);
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController courseNameController = TextEditingController();
-    TextEditingController courseCodeController = TextEditingController();
-    TextEditingController courseHoursController = TextEditingController();
-    List<TimeSlot>timings= [];
-    var theme = Theme.of(context).textTheme;
+    final theme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
+
     return Dialog(
       clipBehavior: Clip.hardEdge,
-      child: SizedBox(
-        width: MediaQuery.sizeOf(context).width,
-        height: 500,
-        child: Column(
-          children: [
-            /// heading
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Add Courses", style: theme.titleMedium),
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.close),
-                  ),
-                ],
-              ),
-            ),
-            Divider(color: AppColors.lightGrey),
-            Column(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(l10n.addCourse, style: theme.titleMedium),
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
+                const Divider(color: AppColors.lightGrey),
+
+                /// Course Details
                 CustomTextField(
-                  controller: courseNameController,
-                  title: "Course Name",
-                  hintText: "e.g. Introduction to Programming",
+                  controller: _courseNameController,
+                  title: l10n.courseName,
+                  hintText: l10n.courseNameHint,
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: CustomTextField(
-                        controller: courseCodeController,
-                        title: "Course Code",
-                        hintText: "e.g. CS101",
+                        controller: _courseCodeController,
+                        title: l10n.courseCode,
+                        hintText: l10n.courseCodeHint,
                       ),
                     ),
                     Expanded(
                       child: CustomTextField(
-                        controller: courseHoursController,
-                        title: "Course Hours",
-                        hintText: "e.g. 3",
+                        controller: _courseHoursController,
+                        title: l10n.courseHours,
+                        hintText: l10n.courseHoursHint,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () => showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay(hour: 12, minute: 0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Course Timing", style: theme.titleMedium),
-                        Row(
-                          children: [
-                            Icon(Icons.add_circle_outline, color: Colors.blue),
-                            Text(
-                              "Add another Timing",
-                              style: theme.titleMedium!.copyWith(
-                                color: Colors.blue,
-                              ),
-                            ),
-                          ],
+                const SizedBox(height: 20),
+
+                Text(l10n.courseTimings, style: theme.titleMedium),
+                const SizedBox(height: 8),
+
+                /// List of Added Timings
+                SizedBox(
+                  height: _timings.isEmpty ? 0 : 100,
+                  child: ListView.builder(
+                    itemCount: _timings.length,
+                    itemBuilder: (ctx, index) {
+                      final slot = _timings[index];
+                      return Card(
+                        child: ListTile(
+                          title: Text(slot.toString()),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete_outline, color: Colors.red),
+                            onPressed: () {
+                              setState(() {
+                                _timings.removeAt(index);
+                              });
+                            },
+                          ),
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ),
-                SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: BlocProvider(
-                    create: (context) => AddCoursesCubit(),
-                    child: PrimaryButton(
-                      onTap: () {
-                        CourseModel model = CourseModel(
-                          name: courseNameController.text,
-                          code: courseCodeController.text,
-                          creditHours: int.parse(courseHoursController.text),
-                          timings: [
-                            TimeSlot(
-                              day: DayOfWeek.sunday,
-                              startTime: TimeOfDay.now(),
-                              endTime: TimeOfDay(hour: 2, minute: 10),
-                            ),
-                            TimeSlot(
-                              day: DayOfWeek.sunday,
-                              startTime: TimeOfDay.now(),
-                              endTime: TimeOfDay(hour: 2, minute: 10),
-                            ),
-                          ],
-                        );
-                        context.read<AddCoursesCubit>().addCourse(model);
-                        Navigator.pop(context);
-                      },
-                      title: "Save Course",
-                      color: Colors.redAccent,
-                    ),
+
+                /// "Add Timing" Button
+                GestureDetector(
+                  onTap: _showTimeSlotPicker,
+                  child: Row(
+                    children: [
+                      const Icon(Icons.add_circle_outline, color: Colors.blue),
+                      const SizedBox(width: 8),
+                      Text(
+                        l10n.addAnotherTiming,
+                        style: theme.titleMedium!.copyWith(color: Colors.blue),
+                      ),
+                    ],
                   ),
+                ),
+
+                const SizedBox(height: 40),
+                PrimaryButton(
+                  onTap: _saveCourse,
+                  title: l10n.saveCourse,
+                  color: Colors.deepOrangeAccent,
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import '../../../core/data/schedule_model.dart';
 import '../widgets/course_data_source.dart';
+import '../../../l10n/app_localizations.dart';
 
 class SuggestedSchedulesScreen extends StatefulWidget {
   final List<ScheduleModel> schedules;
@@ -28,10 +29,11 @@ class _SuggestedSchedulesScreenState extends State<SuggestedSchedulesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (widget.schedules.isEmpty) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Suggested Schedules')),
-        body: const Center(child: Text('No schedules to display.')),
+        appBar: AppBar(title: Text(l10n.suggestedSchedules)),
+        body: Center(child: Text(l10n.noSchedulesToDisplay)),
       );
     }
 
@@ -39,7 +41,7 @@ class _SuggestedSchedulesScreenState extends State<SuggestedSchedulesScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Schedule ${widget.schedules.isNotEmpty ? _currentIndex + 1 : 0} of ${widget.schedules.length}',
+          l10n.scheduleOf(_currentIndex + 1, widget.schedules.length),
         ),
       ),
       body: Column(
@@ -81,7 +83,7 @@ class _SuggestedSchedulesScreenState extends State<SuggestedSchedulesScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: Text(
-                              'Total Credits: ${widget.schedules[_currentIndex].totalCreditHours}',
+                              l10n.totalCredits(widget.schedules[_currentIndex].totalCreditHours),
                               style: Theme.of(context)
                                   .appBarTheme
                                   .titleTextStyle

@@ -7,6 +7,7 @@ import 'package:tanzimak/features/add_courses/widgets/course_item.dart';
 import '../../../widgets/primary_button.dart';
 import '../../preference/views/set_your_preferences_screen.dart';
 import '../widgets/add_courses_dialog.dart';
+import '../../../l10n/app_localizations.dart';
 
 class AddCoursesScreen extends StatelessWidget {
   const AddCoursesScreen({super.key});
@@ -14,6 +15,7 @@ class AddCoursesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
     List<CourseModel> courses = context.watch<AddCoursesCubit>().courses;
    bool isAvailableCourses (){
      if (courses.isEmpty) {
@@ -23,7 +25,7 @@ class AddCoursesScreen extends StatelessWidget {
    }
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Courses", style: theme.titleLarge),
+        title: Text(l10n.addCourses, style: theme.titleLarge),
         centerTitle: true,
       ),
       body: Column(
@@ -31,7 +33,7 @@ class AddCoursesScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Text(
-              "[+] Add all the courses available to you this semester. We will find the best combinations for you.",
+              l10n.addCoursesDescription,
               style: theme.bodyMedium!.copyWith(color: Colors.grey.shade600),
             ),
           ),
@@ -52,7 +54,7 @@ class AddCoursesScreen extends StatelessWidget {
             onTap: () {
               showDialog(
                 context: context,
-                builder: (context) => AddCoursesDialog(context: context),
+                builder: (context) => AddCoursesDialog(),
               );
             },
             child: Padding(
@@ -66,7 +68,7 @@ class AddCoursesScreen extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "[+] ADD NEW COURSE",
+                    l10n.addNewCourse,
                     style: theme.bodyMedium!.copyWith(
                       color: Colors.grey.shade700,
                     ),
@@ -80,7 +82,7 @@ class AddCoursesScreen extends StatelessWidget {
             padding: const EdgeInsets.all(40.0),
             child: PrimaryButton(
               color: isAvailableCourses() ? AppColors.primary : Colors.grey ,
-              title: "GENERATE SCHEDULES (${courses.length})",
+              title: l10n.generateSchedules(courses.length),
               onTap: isAvailableCourses() ? (){
                 Navigator.push(
                   context,
