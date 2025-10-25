@@ -1,0 +1,79 @@
+{
+  "@@locale": "ar",
+  "tanzimak": "تنظيمك",
+  "buildYourPerfectSchedule": "قم ببناء جدولك الجامعي المثالي دون ضغط.",
+  "getStarted": "ابدأ الآن",
+  "addCourses": "إضافة المواد",
+  "addCoursesDescription": "[+] أضف جميع المواد المتاحة لك هذا الفصل. سنجد لك أفضل التركيبات.",
+  "addNewCourse": "[+] إضافة مادة جديدة",
+  "generateSchedulesWithoutNumber": "إنشاء الجداول",
+  "generateSchedules": "إنشاء الجداول ({count})",
+  "@generateSchedules": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addCourse": "إضافة مادة",
+  "courseName": "اسم المادة",
+  "courseNameHint": "مثال: مقدمة في البرمجة",
+  "courseCode": "رمز المادة",
+  "courseCodeHint": "مثال: CS101",
+  "courseHours": "ساعات المادة",
+  "courseHoursHint": "مثال: 3",
+  "courseTimings": "أوقات المادة",
+  "addAnotherTiming": "إضافة وقت آخر",
+  "saveCourse": "حفظ المادة",
+  "pleaseAddTiming": "يرجى إضافة وقت واحد على الأقل للمادة.",
+  "pleaseEnterValidHours": "يرجى إدخال رقم صحيح لساعات المادة.",
+  "dayOfTheWeek": "يوم الأسبوع",
+  "startTime": "وقت البداية",
+  "endTime": "وقت النهاية",
+  "saveSchedule": "حفظ الجدول",
+  "endTimeMustBeAfterStart": "يجب أن يكون وقت النهاية بعد وقت البداية.",
+  "hours": "ساعات",
+  "schedulePreferences": "تفضيلات الجدول",
+  "desiredCreditHoursRange": "نطاق الساعات المطلوبة",
+  "hoursRange": "{start} - {end} ساعة",
+  "@hoursRange": {
+    "placeholders": {
+      "start": {
+        "type": "int"
+      },
+      "end": {
+        "type": "int"
+      }
+    }
+  },
+  "preferredDaysOff": "الأيام المفضلة للإجازة",
+  "choosePreferredDaysOff": "اختر أيام الإجازة المفضلة لديك.",
+  "monday": "الاثنين",
+  "tuesday": "الثلاثاء",
+  "wednesday": "الأربعاء",
+  "thursday": "الخميس",
+  "friday": "الجمعة",
+  "saturday": "السبت",
+  "sunday": "الأحد",
+  "suggestedSchedules": "الجداول المقترحة",
+  "scheduleOf": "الجدول {current} من {total}",
+  "@scheduleOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "totalCredits": "إجمالي الساعات: {credits}",
+  "@totalCredits": {
+    "placeholders": {
+      "credits": {
+        "type": "int"
+      }
+    }
+  },
+  "noSchedulesToDisplay": "لا توجد جداول للعرض."
+}

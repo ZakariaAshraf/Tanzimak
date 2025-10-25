@@ -1,0 +1,79 @@
+{
+  "@@locale": "en",
+  "tanzimak": "Tanzimak",
+  "buildYourPerfectSchedule": "Build your perfect university schedule without the stress.",
+  "getStarted": "Get Started",
+  "addCourses": "Add Courses",
+  "addCoursesDescription": "[+] Add all the courses available to you this semester. We will find the best combinations for you.",
+  "addNewCourse": "[+] ADD NEW COURSE",
+  "generateSchedulesWithoutNumber": "GENERATE SCHEDULES",
+  "generateSchedules": "GENERATE SCHEDULES ({count})",
+  "@generateSchedules": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addCourse": "Add Course",
+  "courseName": "Course Name",
+  "courseNameHint": "e.g. Introduction to Programming",
+  "courseCode": "Course Code",
+  "courseCodeHint": "e.g. CS101",
+  "courseHours": "Course Hours",
+  "courseHoursHint": "e.g. 3",
+  "courseTimings": "Course Timings",
+  "addAnotherTiming": "Add another Timing",
+  "saveCourse": "Save Course",
+  "pleaseAddTiming": "Please add at least one course timing.",
+  "pleaseEnterValidHours": "Please enter a valid number for course hours.",
+  "dayOfTheWeek": "Day of the Week",
+  "startTime": "Start Time",
+  "endTime": "End Time",
+  "saveSchedule": "Save Schedule",
+  "endTimeMustBeAfterStart": "End time must be after start time.",
+  "hours": "hrs",
+  "schedulePreferences": "Schedule Preferences",
+  "desiredCreditHoursRange": "Desired Credit Hours Range",
+  "hoursRange": "{start} - {end} hours",
+  "@hoursRange": {
+    "placeholders": {
+      "start": {
+        "type": "int"
+      },
+      "end": {
+        "type": "int"
+      }
+    }
+  },
+  "preferredDaysOff": "Preferred Days Off",
+  "choosePreferredDaysOff": "Choose your preferred days off.",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  "suggestedSchedules": "Suggested Schedules",
+  "scheduleOf": "Schedule {current} of {total}",
+  "@scheduleOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "totalCredits": "Total Credits: {credits}",
+  "@totalCredits": {
+    "placeholders": {
+      "credits": {
+        "type": "int"
+      }
+    }
+  },
+  "noSchedulesToDisplay": "No schedules to display."
+}
