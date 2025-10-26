@@ -27,7 +27,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
-    _obscure = widget.isPassword; // only obscure if it's a password field
+    _obscure = widget.isPassword;
   }
 
   @override
@@ -43,7 +43,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             style: const TextStyle(color: Colors.black),
             onChanged: widget.onChanged,
             controller: widget.controller,
-            obscureText: _obscure, // ✅ apply obscure
+            obscureText: _obscure,
             decoration: InputDecoration(
               filled: true,
               hintText: widget.hintText,

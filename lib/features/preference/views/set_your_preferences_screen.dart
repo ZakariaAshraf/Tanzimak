@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tanzimak/core/config/screen_util.dart';
 import 'package:tanzimak/core/data/course_model.dart';
 import 'package:tanzimak/core/data/schedule_model.dart';
 import 'package:tanzimak/core/services/schedule_generator.dart';
@@ -47,7 +48,7 @@ class _SetYourPreferencesScreenState extends State<SetYourPreferencesScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(l10n.desiredCreditHoursRange, style: theme.titleMedium),
-            const SizedBox(height: 8),
+             SizedBox(height: 12.h(context)),
 
             RangeSlider(
               values: _creditHours,
@@ -72,16 +73,16 @@ class _SetYourPreferencesScreenState extends State<SetYourPreferencesScreen> {
                 style: theme.titleSmall,
               ),
             ),
-            const SizedBox(height: 24),
+             SizedBox(height: 34.h(context)),
 
             // Section for Days Off
             Text(l10n.preferredDaysOff, style: theme.titleMedium),
-            const SizedBox(height: 4),
+             SizedBox(height: 14.h(context)),
             Text(
               l10n.choosePreferredDaysOff,
               style: theme.titleSmall!.copyWith(color: Colors.grey),
             ),
-            const SizedBox(height: 12),
+             SizedBox(height: 22.h(context)),
 
             Wrap(spacing: 8.0, runSpacing: 4.0, children: _buildDayChips()),
 

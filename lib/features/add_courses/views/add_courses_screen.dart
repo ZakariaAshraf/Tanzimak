@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanzimak/core/config/app_colors.dart';
+import 'package:tanzimak/core/config/screen_util.dart';
 import 'package:tanzimak/core/data/course_model.dart';
 import 'package:tanzimak/features/add_courses/cubit/add_courses_cubit.dart';
 import 'package:tanzimak/features/add_courses/widgets/course_item.dart';
@@ -38,7 +39,7 @@ class AddCoursesScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 230,
+            height: 320.h(context),
             child: ListView.builder(
               itemBuilder: (context, index) => BlocProvider(
                 create: (context) => AddCoursesCubit(),
@@ -60,8 +61,8 @@ class AddCoursesScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
-                height: 50,
-                width: 327,
+                height: 60.h(context),
+                width: 340.w(context),
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.lightGrey),
                   borderRadius: BorderRadius.circular(10),

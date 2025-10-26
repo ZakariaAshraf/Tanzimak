@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tanzimak/core/config/screen_util.dart';
 import 'package:tanzimak/core/data/course_model.dart';
 import 'package:tanzimak/features/add_courses/cubit/add_courses_cubit.dart';
 import 'package:tanzimak/features/add_courses/widgets/time_picker.dart';
@@ -8,6 +9,7 @@ import '../../../core/config/app_colors.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../../widgets/primary_button.dart';
 import '../../../l10n/app_localizations.dart';
+
 class AddCoursesDialog extends StatefulWidget {
   const AddCoursesDialog({super.key});
 
@@ -52,7 +54,7 @@ class _AddCoursesDialogState extends State<AddCoursesDialog> {
             right: 20,
           ),
           child: SizedBox(
-            height: 450,
+            height: 450.h(context),
             child: TimeSlotPicker(
               onSave: (newTimeSlot) {
                 setState(() {
@@ -157,14 +159,14 @@ class _AddCoursesDialogState extends State<AddCoursesDialog> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h(context)),
 
                 Text(l10n.courseTimings, style: theme.titleMedium),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h(context)),
 
                 /// List of Added Timings
                 SizedBox(
-                  height: _timings.isEmpty ? 0 : 100,
+                  height: _timings.isEmpty ? 0 : 130.h(context),
                   child: ListView.builder(
                     itemCount: _timings.length,
                     itemBuilder: (ctx, index) {
@@ -173,7 +175,10 @@ class _AddCoursesDialogState extends State<AddCoursesDialog> {
                         child: ListTile(
                           title: Text(slot.toString()),
                           trailing: IconButton(
-                            icon: const Icon(Icons.delete_outline, color: Colors.red),
+                            icon: const Icon(
+                              Icons.delete_outline,
+                              color: Colors.red,
+                            ),
                             onPressed: () {
                               setState(() {
                                 _timings.removeAt(index);
@@ -192,7 +197,7 @@ class _AddCoursesDialogState extends State<AddCoursesDialog> {
                   child: Row(
                     children: [
                       const Icon(Icons.add_circle_outline, color: Colors.blue),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8.w(context)),
                       Text(
                         l10n.addAnotherTiming,
                         style: theme.titleMedium!.copyWith(color: Colors.blue),
@@ -201,7 +206,7 @@ class _AddCoursesDialogState extends State<AddCoursesDialog> {
                   ),
                 ),
 
-                const SizedBox(height: 40),
+                SizedBox(height: 40.h(context)),
                 PrimaryButton(
                   onTap: _saveCourse,
                   title: l10n.saveCourse,

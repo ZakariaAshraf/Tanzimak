@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanzimak/core/config/app_colors.dart';
+import 'package:tanzimak/core/config/screen_util.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String title;
@@ -13,8 +14,8 @@ class PrimaryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 50,
-        width: 327,
+        height: 70.h(context),
+        width: 350.w(context),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: color ?? AppColors.primary,

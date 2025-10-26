@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:tanzimak/core/config/screen_util.dart';
 import '../../../core/data/schedule_model.dart';
 import '../widgets/course_data_source.dart';
 import '../../../l10n/app_localizations.dart';
@@ -18,13 +19,20 @@ class _SuggestedSchedulesScreenState extends State<SuggestedSchedulesScreen> {
   int _currentIndex = 0;
   late List<CourseDataSource> _dataSources;
   final PageController _pageController = PageController();
-
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
     _dataSources = widget.schedules
         .map((schedule) => CourseDataSource(schedule))
         .toList();
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
   }
 
   @override
@@ -34,6 +42,21 @@ class _SuggestedSchedulesScreenState extends State<SuggestedSchedulesScreen> {
       return Scaffold(
         appBar: AppBar(title: Text(l10n.suggestedSchedules)),
         body: Center(child: Text(l10n.noSchedulesToDisplay)),
+      );
+    }
+    if (_isLoading) {
+      return Scaffold(
+        appBar: AppBar(title: Text(l10n.suggestedSchedules)),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 16),
+              Text(l10n.generatingScheduleSuggestions),
+            ],
+          ),
+        ),
       );
     }
 
@@ -163,8 +186,8 @@ class _SuggestedSchedulesScreenState extends State<SuggestedSchedulesScreen> {
               children: List.generate(widget.schedules.length, (index) {
                 return Expanded(
                   child: Container(
-                    width: 8.0,
-                    height: 8.0,
+                    width: 9.0.w(context),
+                    height: 9.0.h(context),
                     margin: const EdgeInsets.symmetric(
                       vertical: 10.0,
                       horizontal: 4.0,

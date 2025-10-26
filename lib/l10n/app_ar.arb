@@ -7,6 +7,7 @@
   "addCoursesDescription": "[+] أضف جميع المواد المتاحة لك هذا الفصل. سنجد لك أفضل التركيبات.",
   "addNewCourse": "[+] إضافة مادة جديدة",
   "generateSchedulesWithoutNumber": "إنشاء الجداول",
+  "generatingScheduleSuggestions": " جاري تحميل الجداول المقترحه ",
   "generateSchedules": "إنشاء الجداول ({count})",
   "@generateSchedules": {
     "placeholders": {

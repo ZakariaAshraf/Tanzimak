@@ -7,6 +7,7 @@
   "addCoursesDescription": "[+] Add all the courses available to you this semester. We will find the best combinations for you.",
   "addNewCourse": "[+] ADD NEW COURSE",
   "generateSchedulesWithoutNumber": "GENERATE SCHEDULES",
+  "generatingScheduleSuggestions": "Generating Schedule Suggestions",
   "generateSchedules": "GENERATE SCHEDULES ({count})",
   "@generateSchedules": {
     "placeholders": {
