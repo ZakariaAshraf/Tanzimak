@@ -6,7 +6,8 @@ part 'add_courses_state.dart';
 
 class AddCoursesCubit extends Cubit<AddCoursesState> {
   AddCoursesCubit() : super(AddCoursesInitial());
-  List<CourseModel>courses=CourseModel.getMockCourses();
+  List<CourseModel>courses=[];
+  // List<CourseModel>courses=CourseModel.getMockCourses();
   addCourse(CourseModel courseModel){
     emit(AddCoursesLoading());
     courses.add(courseModel);

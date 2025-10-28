@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tanzimak/core/config/themes/text_theme.dart';
-
 class AppTheme {
   static ThemeData getApplicationLightTheme() {
     return ThemeData(
