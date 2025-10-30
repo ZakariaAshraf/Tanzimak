@@ -3,6 +3,8 @@ plugins {
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+    // Add the Huawei AppGallery Connect plugin here
+    id("com.huawei.agconnect")
 }
 
 android {
@@ -37,6 +39,11 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+}
+
+dependencies {
+    // Add dependencies using Kotlin DSL syntax
+    implementation("com.huawei.agconnect:agconnect-core:1.5.2.300")
 }
 
 flutter {
