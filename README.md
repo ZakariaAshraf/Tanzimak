@@ -6,6 +6,30 @@ This app takes all available courses and the user's preferences (like target cre
 
 This project was built to demonstrate advanced problem-solving, complex logic implementation, and algorithmic thinking in a mobile environment.
 
+## 🎯 App Showcase & Features
+
+The core of this app is its powerful generation engine, which turns a confusing list of courses into a set of perfect, organized schedules.
+
+<table>
+  <tr>
+    <td align="center">
+      <h3>1. Add All Available Courses</h3>
+      <p>The user inputs all available courses with their timings.</p>
+      <img src="[URL_TO_YOUR_ADD_COURSES_DEMO.gif]" alt="Add Courses Demo" width="300">
+    </td>
+    <td align="center">
+      <h3>2. Set Your Preferences</h3>
+      <p>The user sets their target credit hours (e.g., 15-18) and preferred days off.</p>
+      <img src="[URL_TO_YOUR_SET_PREFERENCES_DEMO.gif]" alt="Set Preferences Demo" width="300">
+    </td>
+    <td align="center">
+      <h3>3. Get Instant Results</h3>
+      <p>The algorithm filters thousands of combinations and presents only the perfect, conflict-free schedules.</p>
+      <img src="[URL_TO_YOUR_VIEW_RESULTS_DEMO.gif]" alt="View Results Demo" width="300">
+    </td>
+  </tr>
+</table>
+
 ## ✨ Key Features
 
 - **Smart Algorithm**: A custom-built generation engine that:
