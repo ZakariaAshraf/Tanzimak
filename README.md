@@ -1,4 +1,5 @@
 # Tanzimak (تنظيمك) - University Schedule Generator
+[![Get it on AppGallery](https://raw.githubusercontent.com/ZakariaAshraf/Tanzimak/master/logo.gif)](https://appgallery.huawei.com/#/app/C115725989)
 
 Tanzimak is a smart schedule generator built with Flutter. It's designed to help university students solve the complex and stressful problem of creating an optimal, conflict-free class schedule from a long list of available courses.
 
